@@ -127,7 +127,7 @@ abstract class BaseShm implements ShmInterface
      * @return bool
      * @throws \LogicException
      */
-    public function write($data): bool
+    public function write($data)
     {
         if (null === $this->shmId) {
             throw new \LogicException('Please open shared memory use open() before write.');
@@ -156,14 +156,14 @@ abstract class BaseShm implements ShmInterface
      * @param string $data
      * @return bool
      */
-    abstract protected function doWrite($data): bool;
+    abstract protected function doWrite($data);
 
     /**
      * @param string $data
      * @return bool
      * @throws \LogicException
      */
-    public function prepend($data): bool
+    public function prepend($data)
     {
         return $this->write($data . $this->read());
     }
@@ -173,7 +173,7 @@ abstract class BaseShm implements ShmInterface
      * @return bool
      * @throws \LogicException
      */
-    public function append($data): bool
+    public function append($data)
     {
         $old = $this->read();
 
@@ -186,7 +186,7 @@ abstract class BaseShm implements ShmInterface
      * @return string
      * @throws \LogicException
      */
-    public function read($size = 0): string
+    public function read($size = 0)
     {
         if (null === $this->shmId) {
             throw new \LogicException('Please open shared memory use open() before read.');
@@ -215,7 +215,7 @@ abstract class BaseShm implements ShmInterface
      * @param int $size
      * @return string
      */
-    abstract protected function doRead($size = 0): string;
+    abstract protected function doRead($size = 0);
 
     /*****************************************************************
      * helper method
@@ -226,7 +226,7 @@ abstract class BaseShm implements ShmInterface
      * @param int $timeout
      * @return bool
      */
-    public function lock($key, $timeout = 3): bool
+    public function lock($key, $timeout = 3)
     {
         return $this->locker->lock($key, $timeout);
     }
@@ -235,7 +235,7 @@ abstract class BaseShm implements ShmInterface
      * @param string $key
      * @return bool
      */
-    public function unlock($key): bool
+    public function unlock($key)
     {
         return $this->locker->unlock($key);
     }
@@ -243,7 +243,7 @@ abstract class BaseShm implements ShmInterface
     /**
      * @return array
      */
-    public function getError(): array
+    public function getError()
     {
         return [$this->errCode, $this->errMsg];
     }
@@ -260,7 +260,7 @@ abstract class BaseShm implements ShmInterface
     public function getConfig(string $key = null)
     {
         if ($key) {
-            return $this->config[$key] ?? null;
+            return isset($this->config[$key]) ? $this->config[$key] : null;
         }
 
         return $this->config;
@@ -282,7 +282,7 @@ abstract class BaseShm implements ShmInterface
     /**
      * @return int
      */
-    public function getKey(): int
+    public function getKey()
     {
         return $this->key;
     }
@@ -298,7 +298,7 @@ abstract class BaseShm implements ShmInterface
     /**
      * @return string
      */
-    public function getDriver(): string
+    public function getDriver()
     {
         return $this->driver;
     }
@@ -306,7 +306,7 @@ abstract class BaseShm implements ShmInterface
     /**
      * @return int
      */
-    public function getErrCode(): int
+    public function getErrCode()
     {
         return $this->errCode;
     }
@@ -322,7 +322,7 @@ abstract class BaseShm implements ShmInterface
     /**
      * @return string
      */
-    public function getErrMsg(): string
+    public function getErrMsg()
     {
         return $this->errMsg;
     }

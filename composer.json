@@ -16,9 +16,15 @@
             "homepage": "http://www.yzone.net/"
         }
     ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/nestdimon/lock.git"
+        }
+    ],
     "require": {
-        "php": ">7.0.0",
-        "php-comp/lock": "~1.0"
+        "php": ">5.0.0",
+        "php-comp/lock": "dev-php-5"
     },
     "autoload": {
         "psr-4": {

@@ -46,13 +46,13 @@ class ShmMap implements ShmMapInterface, \ArrayAccess, \Countable, \IteratorAggr
     {
         $map = $this->getMap();
 
-        return $map[$name] ?? $default;
+        return isset($map[$name]) ? $map[$name] : $default;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function set($name, $value): bool
+    public function set($name, $value)
     {
         // if is empty, init.
         if (!$map = $this->getMap()) {
@@ -67,7 +67,7 @@ class ShmMap implements ShmMapInterface, \ArrayAccess, \Countable, \IteratorAggr
     /**
      * {@inheritDoc}
      */
-    public function has($name): bool
+    public function has($name)
     {
         if ($map = $this->getMap()) {
             return isset($map[$name]);
@@ -79,7 +79,7 @@ class ShmMap implements ShmMapInterface, \ArrayAccess, \Countable, \IteratorAggr
     /**
      * {@inheritDoc}
      */
-    public function del($name): bool
+    public function del($name)
     {
         // if is empty, init.
         if (!$map = $this->getMap()) {
@@ -101,7 +101,7 @@ class ShmMap implements ShmMapInterface, \ArrayAccess, \Countable, \IteratorAggr
      * @param $data
      * @return bool
      */
-    public function lPush($data): bool
+    public function lPush($data)
     {
         if (!$map = $this->getMap()) {
             $map = [];
@@ -117,7 +117,7 @@ class ShmMap implements ShmMapInterface, \ArrayAccess, \Countable, \IteratorAggr
      * @param $data
      * @return bool
      */
-    public function rPush($data): bool
+    public function rPush($data)
     {
         if (!$map = $this->getMap()) {
             $map = [];
@@ -162,7 +162,7 @@ class ShmMap implements ShmMapInterface, \ArrayAccess, \Countable, \IteratorAggr
      * @param array $map
      * @return bool
      */
-    public function sets(array $map): bool
+    public function sets(array $map)
     {
         return $this->setMap($map, true);
     }
@@ -171,7 +171,7 @@ class ShmMap implements ShmMapInterface, \ArrayAccess, \Countable, \IteratorAggr
      * @param array $names
      * @return array
      */
-    public function gets(array $names): array
+    public function gets(array $names)
     {
         $ret = [];
         $map = $this->getMap();
@@ -189,7 +189,7 @@ class ShmMap implements ShmMapInterface, \ArrayAccess, \Countable, \IteratorAggr
      * alias of getMap()
      * @return array
      */
-    public function all(): array
+    public function all()
     {
         return $this->getMap();
     }
@@ -198,13 +198,13 @@ class ShmMap implements ShmMapInterface, \ArrayAccess, \Countable, \IteratorAggr
      * get map data
      * @return array
      */
-    public function getMap(): array
+    public function getMap()
     {
         if (!$read = $this->shm->read()) {
             return [];
         }
 
-        $map = unserialize(trim($read), ['allowed_classes' => false]);
+        $map = unserialize(trim($read));
 
         if (!is_array($map)) {
             $map = [];
@@ -219,7 +219,7 @@ class ShmMap implements ShmMapInterface, \ArrayAccess, \Countable, \IteratorAggr
      * @param bool $merge
      * @return bool
      */
-    public function setMap(array $map, $merge = false): bool
+    public function setMap(array $map, $merge = false)
     {
         if (!$merge) {
             return $this->shm->write(serialize($map));
@@ -243,7 +243,7 @@ class ShmMap implements ShmMapInterface, \ArrayAccess, \Countable, \IteratorAggr
     /**
      * @return string
      */
-    public function getDriver(): string
+    public function getDriver()
     {
         return $this->shm->getDriver();
     }

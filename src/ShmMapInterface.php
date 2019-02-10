@@ -20,7 +20,7 @@ interface ShmMapInterface
      * @param mixed $value
      * @return bool
      */
-    public function set($name, $value): bool;
+    public function set($name, $value);
 
     /**
      * get a value form SHM-Map
@@ -35,20 +35,20 @@ interface ShmMapInterface
      * @param $name
      * @return bool
      */
-    public function has($name): bool;
+    public function has($name);
 
     /**
      * del a value
      * @param string $name
      * @return bool
      */
-    public function del($name): bool;
+    public function del($name);
 
     /**
      * get map data
      * @return array
      */
-    public function getMap(): array;
+    public function getMap();
 
     /**
      * set map data
@@ -56,5 +56,5 @@ interface ShmMapInterface
      * @param bool $merge
      * @return bool
      */
-    public function setMap(array $map, $merge = false): bool;
+    public function setMap(array $map, $merge = false);
 }

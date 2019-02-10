@@ -102,7 +102,7 @@ class ShmSvMulti
      * @param array $map
      * @return array
      */
-    public function setMulti(array $map): array
+    public function setMulti(array $map)
     {
         $ret = [];
 
@@ -118,7 +118,7 @@ class ShmSvMulti
      * @param array $varKeys
      * @return array
      */
-    public function getMulti(array $varKeys): array
+    public function getMulti(array $varKeys)
     {
         $ret = [];
 
@@ -135,7 +135,7 @@ class ShmSvMulti
      * @param $var
      * @return bool
      */
-    public function set($varKey, $var): bool
+    public function set($varKey, $var)
     {
         $ret = false;
 
@@ -180,7 +180,7 @@ class ShmSvMulti
      * @param int $varKey
      * @return bool
      */
-    public function has($varKey): bool
+    public function has($varKey)
     {
         return shm_has_var($this->shmId, (int)$varKey);
     }
@@ -189,7 +189,7 @@ class ShmSvMulti
      * @param int $varKey
      * @return bool
      */
-    public function del($varKey): bool
+    public function del($varKey)
     {
         return shm_remove_var($this->shmId, (int)$varKey);
     }
@@ -197,7 +197,7 @@ class ShmSvMulti
     /**
      * @return bool
      */
-    public static function isSupported(): bool
+    public static function isSupported()
     {
         return \function_exists('shm_attach');
     }
@@ -205,7 +205,7 @@ class ShmSvMulti
     /**
      * @return LockInterface
      */
-    public function getLocker(): LockInterface
+    public function getLocker()
     {
         return $this->locker;
     }
@@ -213,7 +213,7 @@ class ShmSvMulti
     /**
      * @return int[]
      */
-    public function getVarKeys(): array
+    public function getVarKeys()
     {
         return $this->varKeys;
     }
@@ -242,7 +242,7 @@ class ShmSvMulti
     public function getConfig(string $key = null)
     {
         if ($key) {
-            return $this->config[$key] ?? null;
+            return isset($this->config[$key]) ? $this->config[$key] : null;
         }
 
         return $this->config;

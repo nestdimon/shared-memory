@@ -58,7 +58,7 @@ class ShmOp extends BaseShm
      * @param string $data
      * @return bool
      */
-    public function doWrite($data): bool
+    public function doWrite($data)
     {
         return shmop_write($this->shmId, $data, 0) === \strlen($data);
     }
@@ -68,7 +68,7 @@ class ShmOp extends BaseShm
      * @param int $size
      * @return string
      */
-    public function doRead($size = 0): string
+    public function doRead($size = 0)
     {
         return shmop_read($this->shmId, 0, (int)$size ?: $this->size());
     }
@@ -76,7 +76,7 @@ class ShmOp extends BaseShm
     /**
      * @return int
      */
-    public function size(): int
+    public function size()
     {
         return shmop_size($this->shmId);
     }
@@ -85,7 +85,7 @@ class ShmOp extends BaseShm
      * close
      * @throws \RuntimeException
      */
-    public function close(): bool
+    public function close()
     {
         // Now lets delete the block and close the shared memory segment
         if (!$this->clear()) {
@@ -101,7 +101,7 @@ class ShmOp extends BaseShm
     /**
      * clear
      */
-    public function clear(): bool
+    public function clear()
     {
         return shmop_delete($this->shmId);
         //return $this->write(0);
@@ -110,7 +110,7 @@ class ShmOp extends BaseShm
     /**
      * @return bool
      */
-    public static function isSupported(): bool
+    public static function isSupported()
     {
         return \function_exists('shmop_open');
     }
